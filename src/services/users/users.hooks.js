@@ -10,11 +10,12 @@ const validate = require('feathers-validate-joi');
 // const getUserWithLastName = require('./hooks/getUserWithLastName');
 const admin = require("../../hooks/admin");
 const fetchAdminId = require('./hooks/fetchAdminId');
-
+const fetchUsersBySearch = require('./hooks/fetchUsersBySearch');
+// fetchUsersBySearch()
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [fetchUsersBySearch()],
     get: [],
     create: [validate.form(schema, { abortEarly: false }), hashPassword('password')],
     update: [authenticate('jwt'), validate.form(schema, { abortEarly: false }), hashPassword('password')],

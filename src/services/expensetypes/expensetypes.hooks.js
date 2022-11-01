@@ -2,12 +2,13 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 
 const schema = require("./expensetypes.model");
 const validate = require("feathers-validate-joi");
-const admin = require("../../hooks/admin")
-
+const admin = require("../../hooks/admin");
+const fetchExpensesBySearch = require('./hooks/fetchExpensesBySearch');
+// searchText  fetchExpensesBySearch()
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [fetchExpensesBySearch()],
     get: [],
     create: [authenticate('jwt'), validate.form(schema, { abortEarly: false })],
     update: [authenticate('jwt'), validate.form(schema, { abortEarly: false })],
