@@ -6,11 +6,12 @@ const admin = require("../../hooks/admin")
 const checkUniqueHoushold = require("./hooks/checkUniqueHoushold")
 const getchCurrentPrimaryUser = require("./hooks/fetchPrimaryUserDetails");
 const addCreatedByField = require('./hooks/addCreatedByField');
+const fetchHouseholdsbySearch = require('./hooks/fetchHouseholdsbySearch');
 
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [fetchHouseholdsbySearch()],
     get: [],
     create: [authenticate('jwt'), validate.form(schema, { abortEarly: false }), checkUniqueHoushold(), getchCurrentPrimaryUser(), addCreatedByField()],
     update: [authenticate('jwt'), validate.form(schema, { abortEarly: false }), addCreatedByField()],
