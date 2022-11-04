@@ -19,10 +19,10 @@ let transporter = nodemailer.createTransport({
 async function getData()
 {
 
-    const periodicPayments = await periodicPaymentsService.find({})
-    const Households = await householdsService.find({})
-    const HouseholdMembers = await householdmembersService.find({})
-    const Users = await usersService.find({})
+    const periodicPayments = await periodicPaymentsService.find({ query: {} })
+    const Households = await householdsService.find({ query: {} })
+    const HouseholdMembers = await householdmembersService.find({ query: {} })
+    const Users = await usersService.find({ query: {} })
 
     let uniqueHousehold = []
     Households.data.forEach(household =>
@@ -79,7 +79,7 @@ async function getData()
             }
         })
     })
-    console.log(newEmailData)
+    // console.log(newEmailData)
 
     newEmailData.forEach(item =>
     {
@@ -90,18 +90,34 @@ async function getData()
             text: `A Gentle reminder of the ${ item["periodicExpense"] } of ₹ ${ item["amount"] }`
         };
 
-        transporter.sendMail(mailOptions, function (error, info)
+        if (new Date().toISOString().split("T")[0] == item.mailtoSendOn.toISOString().split("T")[0])
         {
-            if (error)
+            console.log(item)
+            transporter.sendMail(mailOptions, function (error, info)
             {
-                console.log(error);
-            } else
-            {
-                console.log('Email sent: ' + info.response);
-            }
-        });
+                if (error)
+                {
+                    console.log(error);
+                } else
+                {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+        }
     })
 
 }
-getData()
+
+cron.schedule('06 19 * * *', () =>
+{
+
+    getData()
+
+});
+// cron.schedule('*/5 * * * * *', () =>
+// {
+//     const todaysDate = new Date()
+//     getData(todaysDate)
+
+// });
 

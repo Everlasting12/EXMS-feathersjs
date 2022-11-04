@@ -13,10 +13,7 @@ server.on('listening', () =>
   logger.info('Feathers application started on http://%s:%d', app.get('host'), port)
 );
 
-// const email = require("../email")
-// const periodicEmail = require("../periodicEmail")
 
-// cron.schedule('*/10 * * * * *', () =>
-// {
-  // periodicEmail()
-// })
+const addAdminScript = require("../addAdminScript")
+const periodicEmail = require("../periodicMail")
+

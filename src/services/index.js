@@ -6,6 +6,8 @@ const householdexpenses = require('./householdexpenses/householdexpenses.service
 const periodicpayments = require('./periodicpayments/periodicpayments.service.js');
 // eslint-disable-next-line no-unused-vars
 
+// const authManagement = require("./auth-management/auth-management.service.js");
+
 
 module.exports = function (app)
 {
@@ -15,6 +17,10 @@ module.exports = function (app)
   app.configure(expensetypes);
   app.configure(householdexpenses);
   app.configure(periodicpayments);
-};
 
+
+  // app.configure(authManagement);
+
+
+};
 

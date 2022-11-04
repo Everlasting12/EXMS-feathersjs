@@ -7,18 +7,19 @@ const {
 
 const schema = require("./users.model");
 const validate = require('feathers-validate-joi');
-// const getUserWithLastName = require('./hooks/getUserWithLastName');
 const admin = require("../../hooks/admin");
 const fetchAdminId = require('./hooks/fetchAdminId');
 const fetchUsersBySearch = require('./hooks/fetchUsersBySearch');
-// fetchUsersBySearch()
+const registerSuccessEmail = require('./hooks/registerSuccessEmail');
+// sendVerificationEmail(), addVerification("auth-management")
 module.exports = {
   before: {
     all: [],
     find: [fetchUsersBySearch()],
     get: [],
-    create: [validate.form(schema, { abortEarly: false }), hashPassword('password')],
-    update: [authenticate('jwt'), validate.form(schema, { abortEarly: false }), hashPassword('password')],
+    create: [validate.form(schema, { abortEarly: false }), hashPassword('password'),],
+    // update: [authenticate('jwt'), validate.form(schema, { abortEarly: false }), hashPassword('password')],
+    update: [hashPassword('password')],
     patch: [authenticate('jwt'), admin(), fetchAdminId()],
     remove: [authenticate('jwt'), admin()]
   },
@@ -31,8 +32,13 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [],
-    update: [],
+    create: [registerSuccessEmail()],
+    // create: [
+
+    //   protect("password"),
+    //   sendVerify(),
+    //   removeVerification()
+    // ],
     patch: [],
     remove: []
   },

@@ -67,6 +67,11 @@ module.exports = function (app)
       type: Date,
       default: Date.now(),
     },
+    resetLink: {
+      type: String,
+      default: ''
+    }
+
   }, {
     timestamps: true
   });
