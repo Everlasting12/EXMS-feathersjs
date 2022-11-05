@@ -22,9 +22,14 @@ module.exports = function ()
     <p>Dear ${ context.result.firstName } ${ context.result.lastName },</p>
     <div style="margin:20px 0px">
         <p>Welcome to the EXMS portal!</p>
-        <p>Congratulations! 🎉 Your registration has been successful and you can now <a href="${process.env.REACT_APP_URL}login" style="padding:10px 15px;color:blue;text-decoration:none; border-radius:8px;background-color:white">LOGIN</a> to the portal.</p>
+        <p>Congratulations! 🎉 Your registration has been successful and you can now login to the portal.</p>
         <p>If you have any questions, please don't hesitate to contact us.</p>
         <br />
+
+        <br />
+        <a href="${ process.env.REACT_APP_URL }login" style="padding:10px 15px;color:blue;text-decoration:none; border-radius:8px;background-color:white">LOGIN</a> 
+        <br />
+
         <p style="font-style: italic;border-top: 1px solid gray;border-bottom: 1px solid gray;padding:5px 0px;margin:5px 0px;" >This is a system generated email. Please do not reply on it. </p>
         <br />
         <p>Regards,</p>
