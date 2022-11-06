@@ -70,6 +70,14 @@ module.exports = function (app)
     resetLink: {
       type: String,
       default: ''
+    },
+    profileImage: {
+      imageBuffer: {
+        type: Buffer,
+
+      },
+      fileName: { type: String },
+      type: { type: String },
     }
 
   }, {

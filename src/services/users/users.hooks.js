@@ -11,13 +11,14 @@ const admin = require("../../hooks/admin");
 const fetchAdminId = require('./hooks/fetchAdminId');
 const fetchUsersBySearch = require('./hooks/fetchUsersBySearch');
 const registerSuccessEmail = require('./hooks/registerSuccessEmail');
+const handleFileUpload = require('./hooks/handleFileUpload');
 // sendVerificationEmail(), addVerification("auth-management")
 module.exports = {
   before: {
     all: [],
     find: [fetchUsersBySearch()],
     get: [],
-    create: [validate.form(schema, { abortEarly: false }), hashPassword('password'),],
+    create: [validate.form(schema, { abortEarly: false }), hashPassword('password'), handleFileUpload()],
     // update: [authenticate('jwt'), validate.form(schema, { abortEarly: false }), hashPassword('password')],
     update: [hashPassword('password')],
     patch: [authenticate('jwt'), admin(), fetchAdminId()],
